@@ -101,8 +101,9 @@ res.type("text/html").end(`
     <link href="https://getbootstrap.com/docs/4.0/examples/sign-in/signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
-      <img class="mb-4" src="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png" alt="" width="72" height="72"><br>
-      <h1 class="h3 mb-3 font-weight-normal">Welcome ${req.session.mail}</h1>
+      <img class="mb-4" src="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png" alt="" width="72" height="72"><br><br>
+      <h1 class="h3 mb-3 font-weight-normal">Welcome ${req.session.mail}</h1><br>
+      <a href="logout"><button class="btn btn-lg btn-primary btn-block">Log Out</button></a>
   </body>
 </html>
 `);
@@ -110,6 +111,12 @@ res.type("text/html").end(`
 else {
 res.redirect(301, "https://awth.now.sh/register");
 }
+})
+
+app.get("/logout", function(req, res) {
+req.session.destroy(function() {
+res.redirect(301, "https://awth.now.sh/register");
+})
 })
 
 app.get("/*", function(req, res) {
