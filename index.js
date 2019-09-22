@@ -1,6 +1,6 @@
 var app = require("express")();
 var session = require("express-session");
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 1000}}))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 10000}}))
 
 app.get('/', function(req, res, next) {
   if (req.session.views) {
