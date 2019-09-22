@@ -36,7 +36,7 @@ res.redirect(301, "https://awth.now.sh/register");
 })
 
 app.get('/register', function(req, res) {
-if (req.session.verified) {
+if (!req.session.verified) {
 res.type("text/html").end(`
 <!doctype html>
 <html lang="en">
@@ -64,6 +64,10 @@ res.type("text/html").end(`
   </body>
 </html>
 `);
+}
+else {
+res.redirect(301, "https://awth.now.sh/dashboard");
+}
 })
 
 app.get("/api", function(req, res) {
