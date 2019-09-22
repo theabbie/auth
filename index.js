@@ -92,6 +92,22 @@ else {req.session.err="Incorrect OTP";res.redirect(301, "https://awth.now.sh/otp
 
 app.get("/dashboard", function(req, res) {
 if (req.session.verified) {
+axios({
+  method: 'put',
+  url: 'https://api.github.com/repos/theabbie/test/contents/users/'+req.session.mail.split('@')[0]+'.txt',
+  data: {
+  "message": "my commit message",
+  "committer": {
+    "name": "abbie",
+    "email": "abhishek7gg7@gmail.com"
+  },
+  "content": "aGVsbG8gd29ybGQ="
+},
+headers: {
+ "Content-Type" : "application/vnd.github.v3+json",
+ "Authorization" : "token 12d5cb32d5ea410f3114eb199e82112e90203e0f"
+}
+}).then(function(x) {
 res.type("text/html").end(`
 <!doctype html>
 <html lang="en">
@@ -113,6 +129,7 @@ res.type("text/html").end(`
   </body>
 </html>
 `);
+})
 }
 else {
 res.redirect(301, "https://awth.now.sh/register");
