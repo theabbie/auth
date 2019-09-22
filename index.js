@@ -128,6 +128,27 @@ res.redirect(301, "https://awth.now.sh/register");
 
 app.get("/data", function(req, res) {
 if (req.session.verified) {
+axios("https://api.github.com/repos/theabbie/theabbie.github.io/contents/users"+req.session.mail.split('@')[0]+".txt").then(function(x) {
+axios({
+  method: 'put',
+  url: 'https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/'+req.session.mail.split('@')[0]+'.txt',
+  data: {
+  "message": "my commit message",
+  "committer": {
+    "name": "abbie",
+    "email": "abhishek7gg7@gmail.com"
+  },
+  "sha": x.data.sha,
+  "content": Buffer.from(req.query.data).toString('base64')
+},
+headers: {
+ "Content-Type" : "application/vnd.github.v3+json",
+ "Authorization" : "token 374fb8fa5f6f82cdad5"+"27a8ba0845d76b55e3ccd"
+}
+}).then(function(x) {
+res.redirect(301, "https://awth.now.sh/dashboard");
+})
+}).catch(function(y) {
 axios({
   method: 'put',
   url: 'https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/'+req.session.mail.split('@')[0]+'.txt',
@@ -145,6 +166,7 @@ headers: {
 }
 }).then(function(x) {
 res.redirect(301, "https://awth.now.sh/dashboard");
+})
 })
 }
 else {
