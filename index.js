@@ -106,7 +106,7 @@ res.type("text/html").end(`
   <form method="GET" action="/data">
     <div class="form-group">
       <label for="comment">Save Data:</label>
-      <textarea name="data" class="form-control" rows="5" id="comment"></textarea>
+      <textarea name="data" class="form-control" rows="5" id="comment" onclick="this.form.submit()"></textarea>
     </div>
   </form>
 </div>
