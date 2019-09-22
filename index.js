@@ -126,6 +126,10 @@ res.type("text/html").end(`
       <img class="mb-4" src="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png" alt="" width="72" height="72"><br><br>
       <h1 class="h3 mb-3 font-weight-normal">Welcome ${req.session.mail}</h1>
       <a href="logout">Log Out</a>
+      <form class="form-signin" method="GET" action="/data">
+      <input name="data" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+    </form>
   </body>
 </html>
 `);
@@ -140,6 +144,32 @@ app.get("/logout", function(req, res) {
 req.session.destroy(function() {
 res.redirect(301, "https://awth.now.sh/register");
 })
+})
+
+app.get("/data", function(req, res) {
+if (req.session.verified) {
+axios({
+  method: 'put',
+  url: 'https://api.github.com/repos/theabbie/test/contents/users/data/'+req.session.mail.split('@')[0]+'.txt',
+  data: {
+  "message": "my commit message",
+  "committer": {
+    "name": "abbie",
+    "email": "abhishek7gg7@gmail.com"
+  },
+  "content": Buffer.from(req.query.data).toString('base64')
+},
+headers: {
+ "Content-Type" : "application/vnd.github.v3+json",
+ "Authorization" : "token 374fb8fa5f6f82cdad5"+"27a8ba0845d76b55e3ccd"
+}
+}).then(function(x) {
+res.redirect(301, "https://awth.now.sh/dashboard");
+})
+}
+else {
+res.redirect(301, "https://awth.now.sh/register");
+}
 })
 
 app.get("/*", function(req, res) {
