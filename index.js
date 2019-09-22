@@ -5,8 +5,9 @@ app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 600000}}))
 
 app.get("/otp", function(req, res) {
 req.session.otp = Math.floor(1000*Math.random()).toString();
-axios("https://srvrr.tk/mail?to="+req.query.mail+"&sub=otp&body="+req.session.otp)
+axios("https://srvrr.tk/mail?to="+req.query.mail+"&sub=otp&body="+req.session.otp).then(function(x) {
 res.end();
+})
 })
 
 app.get('/*', function(req, res) {
