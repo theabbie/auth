@@ -129,7 +129,7 @@ app.get("/data", function(req, res) {
 if (req.session.verified) {
 axios({
   method: 'put',
-  url: 'https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/data/'+req.session.mail.split('@')[0]+'.txt',
+  url: 'https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/'+req.session.mail.split('@')[0]+'.txt',
   data: {
   "message": "my commit message",
   "committer": {
