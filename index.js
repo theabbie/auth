@@ -102,8 +102,8 @@ res.type("text/html").end(`
   </head>
   <body class="text-center">
       <img class="mb-4" src="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png" alt="" width="72" height="72"><br><br>
-      <h1 class="h3 mb-3 font-weight-normal">Welcome ${req.session.mail}</h1><br>
-      <a href="logout"><button class="btn btn-lg btn-primary btn-block">Log Out</button></a>
+      <h1 class="h3 mb-3 font-weight-normal">Welcome ${req.session.mail}</h1>
+      <a href="logout">Log Out</a>
   </body>
 </html>
 `);
