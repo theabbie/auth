@@ -57,7 +57,7 @@ res.type("text/html").end(`
       <img class="mb-4" src="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please Register</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input name="mail" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <input name="mail" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
       <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required><br>
       <p style="color: red">${req.session.err || ""}</p><br>
