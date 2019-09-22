@@ -1,16 +1,13 @@
 var app = require("express")();
 var session = require("express-session");
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 10000}}))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000}}))
 
-app.get('/', function(req, res, next) {
-  if (req.session.views) {
-    req.session.views++
-    res.setHeader('Content-Type', 'text/html')
-    res.write('<p>views: ' + req.session.views + '</p>')
-    res.end()
+app.get('/*', function(req, res, next) {
+  if (req.session.nonce) {
+    res.type("text/html").end(req.url.substring(1)==req.session.nonce?"ok":"not ok")
   } else {
-    req.session.views = 1
-    res.end('welcome to the session demo. refresh!')
+    req.session.nonce = Math.floor(1000*Math.random()).toString();
+    res.type("text/html").end("<a href='"+req.session.nonce+"'>go</a>")
   }
 })
 
