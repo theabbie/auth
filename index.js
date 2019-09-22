@@ -23,7 +23,8 @@ res.type("text/html").end(`
     <form class="form-signin" method="GET" action="/verify">
       <img class="mb-4" src="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please enter OTP for ${req.session.mail}</h1>
-      <input name="otp" type="text" id="inputEmail" class="form-control" placeholder="OTP" required autofocus><br><br>
+      <input name="otp" type="text" id="inputEmail" class="form-control" placeholder="OTP" required autofocus><br>
+      <p style="color: red">${req.session.err || ""}</p><br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form>
   </body>
@@ -81,7 +82,7 @@ res.redirect(301, "https://awth.now.sh/otp");
 
 app.get("/verify", function(req, res) {
 if (req.query.otp==req.session.otp) {req.session.verified=true;res.redirect(301, "https://awth.now.sh/dashboard");}
-else {res.redirect(301, "https://awth.now.sh/otp")}
+else {req.session.err="Incorrect OTP";res.redirect(301, "https://awth.now.sh/otp")}
 })
 
 app.get("/dashboard", function(req, res) {
