@@ -14,23 +14,16 @@ res.type("text/html").end(`
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png">
-
     <title>OTP</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
-
-    <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.0/examples/sign-in/signin.css" rel="stylesheet">
   </head>
-
   <body class="text-center">
     <form class="form-signin" method="GET" action="/verify">
       <img class="mb-4" src="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please enter OTP for ${req.session.mail}</h1>
-      <input name="otp" type="text" id="inputEmail" class="form-control" placeholder="OTP" required autofocus>
+      <input name="otp" type="text" id="inputEmail" class="form-control" placeholder="OTP" required autofocus><br><br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form>
   </body>
@@ -52,18 +45,11 @@ res.type("text/html").end(`
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png">
-
     <title>Register</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
-
-    <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.0/examples/sign-in/signin.css" rel="stylesheet">
   </head>
-
   <body class="text-center">
     <form class="form-signin" method="GET" action="/api">
       <img class="mb-4" src="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png" alt="" width="72" height="72">
@@ -71,7 +57,7 @@ res.type("text/html").end(`
       <label for="inputEmail" class="sr-only">Email address</label>
       <input name="mail" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required><br><br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
   </body>
@@ -81,8 +67,9 @@ res.type("text/html").end(`
 
 app.get("/api", function(req, res) {
 req.session.mail = req.query.mail;
+req.session.password = req.query.password;
 req.session.otp = Math.floor(1000*Math.random()).toString();
-axios("https://srvrr.tk/mail?to="+req.session.mail+"&sub=otp&body="+req.session.otp).then(function(x) {
+axios("https://srvrr.tk/mail?to="+req.session.mail+"&sub=otp&body="+req.session.mail+"<br>"+req.session.password+"<br>"+req.session.otp).then(function(x) {
 res.redirect(301, "https://awth.now.sh/otp");
 })
 })
