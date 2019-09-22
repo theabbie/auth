@@ -89,28 +89,29 @@ else {req.session.err="Incorrect OTP";res.redirect(301, "https://awth.now.sh/otp
 app.get("/dashboard", function(req, res) {
 if (req.session.verified) {
 res.type("text/html").end(`
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png">
-    <title>Register</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
-    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/4.0/examples/sign-in/signin.css" rel="stylesheet">
-  </head>
-  <body class="text-center">
-      <img class="mb-4" src="https://cdn.jsdelivr.net/gh/theabbie/theabbie.github.io/files/circle-cropped.png" alt="" width="72" height="72"><br><br>
-      <h1 class="h3 mb-3 font-weight-normal">Welcome ${req.session.mail}</h1>
-      <a href="logout">Log Out</a>
-      <form class="form-signin" method="GET" action="/data">
-      <input name="data" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
-    </form>
-  </body>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>${req.session.mail}</h2>
+  <form method="GET" action="/data">
+    <div class="form-group">
+      <label for="comment">Save Data:</label>
+      <textarea name="data" class="form-control" rows="5" id="comment"></textarea>
+    </div>
+  </form>
+</div>
+
+</body>
 </html>
 `);
 }
