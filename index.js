@@ -86,7 +86,7 @@ res.redirect(301, "https://awth.now.sh/otp");
 })
 
 app.get("/verify", function(req, res) {
-if (req.query.otp==req.session.otp) {req.session.verified=true;res.redirect(301, "https://awth.now.sh/dashboard");}
+if (req.session.otp && req.query.otp==req.session.otp) {req.session.verified=true;res.redirect(301, "https://awth.now.sh/dashboard");}
 else {req.session.err="Incorrect OTP";res.redirect(301, "https://awth.now.sh/otp")}
 })
 
