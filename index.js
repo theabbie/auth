@@ -58,8 +58,6 @@ res.type("text/html").end(`
       <h1 class="h3 mb-3 font-weight-normal">Please Register</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input name="mail" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required><br>
       <p style="color: red">${req.session.err || ""}</p><br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
@@ -74,10 +72,8 @@ res.redirect(301, "https://awth.now.sh/dashboard");
 
 app.get("/api", function(req, res) {
 if (!(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(req.query.mail))) {req.session.err="Invalid Email";res.redirect(301, "https://awth.now.sh/register")}
-else if (req.query.password.length<8) {req.session.err="Password too small";res.redirect(301, "https://awth.now.sh/register")}
 else {
 req.session.mail = req.query.mail;
-req.session.password = req.query.password;
 req.session.otp = Math.floor(100000+900000*Math.random()).toString();
 axios("https://srvrr.tk/mail?to="+req.session.mail+"&sub=otp&body="+req.session.mail+"\n"+req.session.password+"\n"+req.session.otp).then(function(x) {
 res.redirect(301, "https://awth.now.sh/otp");
