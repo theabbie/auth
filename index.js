@@ -1,13 +1,17 @@
 var app = require("express")();
 var session = require("express-session");
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000}}))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 600000}}))
 
-app.get('/*', function(req, res, next) {
-  if (req.session.nonce) {
-    res.type("text/html").end(req.url.substring(1)==req.session.nonce?"ok":"not ok")
+app.get("/otp", function(req, res) {
+req.session.otp = Math.floor(1000*Math.random()).toString();
+axios("https://srvrr.tk/mail?to="+req.query.mail+"&sub=otp&body="+req.session.otp)
+})
+
+app.get('/*', function(req, res) {
+  if (req.session.otp) {
+    res.type("text/html").end(req.url.substring(1)==req.session.otp?"ok":"not ok")
   } else {
-    req.session.nonce = Math.floor(1000*Math.random()).toString();
-    res.type("text/html").end("<a href='"+req.session.nonce+"'>go</a>")
+    res.type("text/html").end("OTP not set");
   }
 })
 
