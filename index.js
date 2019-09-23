@@ -87,6 +87,8 @@ axios('https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/'
 req.session.data = Buffer.from(l.data.content, 'base64').toString();
 req.session.verified=true;
 res.redirect(301, "https://awth.now.sh/dashboard")
+}).catch(function(y) {
+res.redirect(301, "https://awth.now.sh/dashboard")
 })
 ;}
 else {req.session.err="Incorrect OTP";res.redirect(301, "https://awth.now.sh/otp")}
@@ -156,6 +158,8 @@ headers: {
 axios('https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/'+req.session.mail.split('@')[0]+'.txt').then(function(l) {
 req.session.data = Buffer.from(l.data.content, 'base64').toString();
 res.redirect(301, "https://awth.now.sh/dashboard");
+}).catch(function(y) {
+res.redirect(301, "https://awth.now.sh/dashboard")
 })
 })
 }).catch(function(y) {
