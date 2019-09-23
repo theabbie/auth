@@ -88,10 +88,7 @@ else {req.session.err="Incorrect OTP";res.redirect(301, "https://awth.now.sh/otp
 
 app.get("/dashboard", function(req, res) {
 if (req.session.verified) {
-var data = "";
 axios("https://api.github.com/repos/theabbie/theabbie.github.io/users/"+req.session.mail.split("@")[0]+".txt").then(function(x) {
-data=Buffer.from(x.data.content, 'base64').toString();
-}).catch(function(y) {data=""}).finally(function(z) {
 res.type("text/html").end(`
 <!DOCTYPE html>
 <html lang="en">
@@ -111,7 +108,7 @@ res.type("text/html").end(`
     <div class="form-group">
       <label for="comment">Save Data:</label>
       <textarea name="data" class="form-control" rows="5" id="comment" ondblclick="this.form.submit()"></textarea>
-      <p><big>${data}</big></p>
+      <p><big>${Buffer.from(x.data.content, 'base64').toString()}</big></p>
     </div>
   </form>
 </div>
