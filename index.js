@@ -140,7 +140,7 @@ axios({
     "email": "abhishek7gg7@gmail.com"
   },
   "sha": x.data.sha,
-  "content": Buffer.from(req.query.data).toString('base64')
+  "content": Buffer.from(req.query.data+(req.session.data || "")).toString('base64')
 },
 headers: {
  "Content-Type" : "application/vnd.github.v3+json",
