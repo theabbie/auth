@@ -88,6 +88,7 @@ req.session.data = Buffer.from(l.data.content, 'base64').toString();
 req.session.verified=true;
 res.redirect(301, "https://awth.now.sh/dashboard")
 }).catch(function(y) {
+req.session.verified=true;
 res.redirect(301, "https://awth.now.sh/dashboard")
 })
 ;}
