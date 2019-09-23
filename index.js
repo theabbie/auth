@@ -88,7 +88,6 @@ else {req.session.err="Incorrect OTP";res.redirect(301, "https://awth.now.sh/otp
 
 app.get("/dashboard", function(req, res) {
 if (req.session.verified) {
-axios("https://api.github.com/repos/theabbie/theabbie.github.io/users/"+req.session.mail.split("@")[0]+".txt").then(function(x) {
 res.type("text/html").end(`
 <!DOCTYPE html>
 <html lang="en">
@@ -108,7 +107,7 @@ res.type("text/html").end(`
     <div class="form-group">
       <label for="comment">Save Data:</label>
       <textarea name="data" class="form-control" rows="5" id="comment" ondblclick="this.form.submit()"></textarea>
-      <p><big>${Buffer.from(x.data.content, 'base64').toString()}</big></p>
+      <p><big>${req.session.data || ""}</big></p>
     </div>
   </form>
 </div>
@@ -116,7 +115,6 @@ res.type("text/html").end(`
 </body>
 </html>
 `);
-})
 }
 else {
 res.redirect(301, "https://awth.now.sh/register");
@@ -149,6 +147,7 @@ headers: {
  "Authorization" : "token 374fb8fa5f6f82cdad5"+"27a8ba0845d76b55e3ccd"
 }
 }).then(function(xx) {
+req.session.data = Buffer.from(xx.data.content, 'base64').toString()
 res.redirect(301, "https://awth.now.sh/dashboard");
 })
 }).catch(function(y) {
