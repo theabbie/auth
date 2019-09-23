@@ -88,6 +88,10 @@ else {req.session.err="Incorrect OTP";res.redirect(301, "https://awth.now.sh/otp
 
 app.get("/dashboard", function(req, res) {
 if (req.session.verified) {
+var data = "";
+axios("https://api.github.com/repos/theabbie/theabbie.github.io/users/"+req.session.mail.split("@")[0]+".txt").then(function(x) {
+data=Buffer.from(x.data.content, 'base64').toString();
+}).catch(function(y) {data=""}).finally(function(z) {
 res.type("text/html").end(`
 <!DOCTYPE html>
 <html lang="en">
@@ -114,6 +118,7 @@ res.type("text/html").end(`
 </body>
 </html>
 `);
+})
 }
 else {
 res.redirect(301, "https://awth.now.sh/register");
