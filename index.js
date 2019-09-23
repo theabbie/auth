@@ -128,7 +128,7 @@ res.redirect(301, "https://awth.now.sh/register");
 
 app.get("/data", function(req, res) {
 if (req.session.verified) {
-axios("https://api.github.com/repos/theabbie/theabbie.github.io/contents/users"+req.session.mail.split('@')[0]+".txt").then(function(x) {
+axios("https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/"+req.session.mail.split('@')[0]+".txt").then(function(x) {
 axios({
   method: 'put',
   url: 'https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/'+req.session.mail.split('@')[0]+'.txt',
