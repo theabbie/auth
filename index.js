@@ -116,7 +116,7 @@ res.type("text/html").end(`
     <div class="form-group">
       <label for="comment">Save Data:</label>
       <textarea name="data" class="form-control" rows="5" id="comment" ondblclick="this.form.submit()"></textarea>
-      <p><big>${req.session.data || ""}</big></p>
+      <p><big><br><br>${req.session.data || ""}</big></p>
     </div>
   </form>
 </div>
