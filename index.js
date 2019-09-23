@@ -88,7 +88,6 @@ else {req.session.err="Incorrect OTP";res.redirect(301, "https://awth.now.sh/otp
 
 app.get("/dashboard", function(req, res) {
 if (req.session.verified) {
-axios('https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/'+req.session.mail.split('@')[0]+'.txt').then(function(x) {req.session.data=Buffer.from(x.data.content, 'base64').toString()}).catch(function(y) {req.session.data=""}).finally(function() {
 res.type("text/html").end(`
 <!DOCTYPE html>
 <html lang="en">
@@ -116,7 +115,6 @@ res.type("text/html").end(`
 </body>
 </html>
 `);
-})
 }
 else {
 res.redirect(301, "https://awth.now.sh/register");
@@ -149,7 +147,10 @@ headers: {
  "Authorization" : "token 374fb8fa5f6f82cdad5"+"27a8ba0845d76b55e3ccd"
 }
 }).then(function(xx) {
+axios('https://api.github.com/repos/theabbie/theabbie.github.io/contents/users/'+req.session.mail.split('@')[0]+'.txt').then(function(l) {
+req.session.data = Buffer.from(l.data.content, 'base64').toString();
 res.redirect(301, "https://awth.now.sh/dashboard");
+})
 })
 }).catch(function(y) {
 axios({
