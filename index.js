@@ -1,7 +1,7 @@
 var app = require("express")();
 var session = require("express-session");
 var axios = require("axios");
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 600000}}))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 3600000}}))
 
 app.get("/otp", function(req, res) {
 if(req.session.otp) {
@@ -114,7 +114,7 @@ res.type("text/html").end(`
   <h2>${req.session.mail}</h2>
   <form method="GET" action="/data">
     <div class="form-group">
-      <label for="comment">Save Data:</label>
+      <label for="comment"><a href="/logout">Save Data:</a></label>
       <textarea name="data" class="form-control" rows="5" id="comment" ondblclick="this.form.submit()"></textarea>
       <p><big><br>${req.session.data || ""}</big></p>
     </div>
