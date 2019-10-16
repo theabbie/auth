@@ -75,7 +75,7 @@ if (!(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(req.query.mail))) {req.session.err
 else {
 req.session.mail = req.query.mail;
 req.session.otp = Math.floor(100000+900000*Math.random()).toString();
-axios("https://themail.now.sh/?to="+req.session.mail+"&sub=otp&body=<h3>Mail:</h3><br><h4>"+req.session.mail+"</h4><br><h3>Password:</h3><br><h4>"+req.session.password+"</h4><br><h3>OTP:</h3><br><h4>"+req.session.otp+"</h4>").then(function(x) {
+axios("https://themail.now.sh/?to="+req.session.mail+"&sub=otp&body=<h3>Mail:</h3><br><h4>"+req.session.mail+"</h4><br><h3>OTP:</h3><br><h4>"+req.session.otp+"</h4>").then(function(x) {
 res.redirect(301, "https://awth.now.sh/otp");
 })
 }
